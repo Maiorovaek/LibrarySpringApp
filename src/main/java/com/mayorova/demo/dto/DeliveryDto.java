@@ -1,5 +1,6 @@
 package com.mayorova.demo.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
@@ -7,61 +8,48 @@ import java.time.LocalDate;
 
 public class DeliveryDto implements Serializable {
     @JsonProperty("id_delivery")
-    private long idDelivery;
-    @JsonProperty("id_book")
-    private BookDto idBook;
+    private Long idDelivery;
+    @JsonIgnore
+    private BookDto books;
     @JsonProperty("librarian")
-    private LibrarianDto librarian;
-    @JsonProperty("number_reader_ticket")
-    private ReaderDto numberReaderTicket;
+    private LibrarianDto librarianDto;
+    @JsonProperty("reader")
+    private ReaderDto readerDto;
     @JsonProperty("delivery_date")
     private LocalDate deliveryDate;
     @JsonProperty("return_date")
     private LocalDate returnDate;
 
-
-    public DeliveryDto() {
+    public ReaderDto getReaderDto() {
+        return readerDto;
     }
 
-    public DeliveryDto(long idDelivery, BookDto idBook, LibrarianDto librarian, ReaderDto numberReaderTicket, LocalDate deliveryDate, LocalDate returnDate) {
-        this.idDelivery = idDelivery;
-        this.idBook = idBook;
-        this.librarian = librarian;
-        this.numberReaderTicket = numberReaderTicket;
-        this.deliveryDate = deliveryDate;
-        this.returnDate = returnDate;
+    public void setReaderDto(ReaderDto readerDto) {
+        this.readerDto = readerDto;
     }
 
-    public LibrarianDto getLibrarian() {
-        return librarian;
-    }
-
-    public void setLibrarian(LibrarianDto librarian) {
-        this.librarian = librarian;
-    }
-
-    public long getIdDelivery() {
+    public Long getIdDelivery() {
         return idDelivery;
     }
 
-    public void setIdDelivery(long idDelivery) {
+    public void setIdDelivery(Long idDelivery) {
         this.idDelivery = idDelivery;
     }
 
-    public BookDto getIdBook() {
-        return idBook;
+    public LibrarianDto getLibrarianDto() {
+        return librarianDto;
     }
 
-    public void setIdBook(BookDto idBook) {
-        this.idBook = idBook;
+    public void setLibrarianDto(LibrarianDto librarianDto) {
+        this.librarianDto = librarianDto;
     }
 
-    public ReaderDto getNumberReaderTicket() {
-        return numberReaderTicket;
+    public BookDto getBooks() {
+        return books;
     }
 
-    public void setNumberReaderTicket(ReaderDto numberReaderTicket) {
-        this.numberReaderTicket = numberReaderTicket;
+    public void setBooks(BookDto books) {
+        this.books = books;
     }
 
     public LocalDate getDeliveryDate() {

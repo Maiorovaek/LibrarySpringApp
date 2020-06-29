@@ -1,42 +1,45 @@
 package com.mayorova.demo.controller;
 
 import com.mayorova.demo.dto.LibrarianDto;
+import com.mayorova.demo.service.LibrarianService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
-import java.util.Arrays;
 import java.util.List;
 
 @RequestMapping("/librarians")
 @RestController
 public class LibrarianController {
+    private final LibrarianService librarianService;
 
-    private List<LibrarianDto> librarianList = Arrays.asList(new LibrarianDto(1, "Yuriy", "Somov"), new LibrarianDto(2, "Gregory", "Sharov"));
-
-    public LibrarianController() {
+    @Autowired
+    public LibrarianController(LibrarianService librarianService) {
+        this.librarianService = librarianService;
     }
 
     @GetMapping(value = "/{id}")
-    public LibrarianDto getLibrarian(@PathVariable int id) {
-        return librarianList.get(id);
+    public LibrarianDto getLibrarian(@PathVariable("id") Long id) {
+        return librarianService.getById(id);
     }
 
     @GetMapping
     public List<LibrarianDto> getAllLibrarian() {
-        return librarianList;
+        return librarianService.getAll();
     }
 
     @PutMapping
     public LibrarianDto updateLibrarian(@RequestBody LibrarianDto librarian) {
-        return null;
+        return librarianService.updateLibrarian(librarian);
     }
 
     @DeleteMapping
     public void deleteLibrarian(@PathParam("id") Long id) {
+        librarianService.deleteById(id);
     }
 
     @PostMapping
-    public LibrarianDto createLibrarian(LibrarianDto librarian) {
-        return null;
+    public LibrarianDto createLibrarian(@RequestBody LibrarianDto librarianDto) {
+        return librarianService.createLibrarian(librarianDto);
     }
 }

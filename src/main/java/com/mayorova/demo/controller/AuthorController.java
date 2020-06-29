@@ -1,41 +1,44 @@
 package com.mayorova.demo.controller;
 
 import com.mayorova.demo.dto.AuthorDto;
+import com.mayorova.demo.service.AuthorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.*;
 
 @RequestMapping("/authors")
 @RestController
 public class AuthorController {
-    private List<AuthorDto> authorList = Arrays.asList(new AuthorDto(1, "Joanne", "Rowling"), new AuthorDto(2, "James", "Chase"));
+    private final AuthorService authorService;
 
-    public AuthorController() {
-    }
-
-    @GetMapping(value = "/{id}")
-    public AuthorDto getDelivery(@PathVariable int id) {
-        return authorList.get(id);
+    @Autowired
+    public AuthorController(AuthorService authorService) {
+        this.authorService = authorService;
     }
 
     @GetMapping
     public List<AuthorDto> getAllAuthors() {
-        return authorList;
+        return authorService.getAll();
     }
 
     @PutMapping
-    public AuthorDto updateAuthor(@RequestBody AuthorDto author) {
-        return null;
+    public AuthorDto updateAuthor(@RequestBody AuthorDto authorDto) {
+        return authorService.updateAuthor(authorDto);
     }
 
-    @DeleteMapping
-    public void deleteAuthor(@PathParam("id") Long id) {
+    @DeleteMapping(value ="/{id}")
+    public void deleteAuthor(@PathVariable("id") Long id) {
+        authorService.deleteById(id);
+    }
 
+    @GetMapping(value = "/{id}")
+    public AuthorDto getAuthorById(@PathVariable("id") Long id) {
+        return authorService.getById(id);
     }
 
     @PostMapping
-    public AuthorDto createAuthor( AuthorDto author) {
-        return null;
+    public AuthorDto createAuthor(@RequestBody AuthorDto authorDto) {
+        return authorService.createAuthor(authorDto);
     }
 }

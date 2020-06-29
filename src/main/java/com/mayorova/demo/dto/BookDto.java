@@ -1,44 +1,51 @@
 package com.mayorova.demo.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Set;
 
 public class BookDto implements Serializable {
     @JsonProperty("id")
-    private long id;
+    private Long id;
     @JsonProperty("genre")
     private Genre genre;
     @JsonProperty("title")
     private String title;
-    @JsonProperty("author")
-    private AuthorDto author;
     @JsonProperty("number_pages")
     private int numberPages;
     @JsonProperty("count")
     private int count;
     @JsonProperty("published_date")
-    private LocalDate published_date;
+    private LocalDate publishedDate;
+    @JsonIgnore
+    private Set<AuthorDto> authors;
+    @JsonIgnore
+    private Set<DeliveryDto> deliveryDto;
 
-    public BookDto() {
+    public Set<DeliveryDto> getDeliveryDto() {
+        return deliveryDto;
     }
 
-    public BookDto(long id, Genre genre, String title, AuthorDto author, int numberPages, int count, LocalDate published_date) {
+    public void setDeliveryDto(Set<DeliveryDto> deliveryDto) {
+        this.deliveryDto = deliveryDto;
+    }
+
+    public Set<AuthorDto> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(Set<AuthorDto> authors) {
+        this.authors = authors;
+    }
+
+    public void setId(Long id) {
         this.id = id;
-        this.genre = genre;
-        this.title = title;
-        this.author = author;
-        this.numberPages = numberPages;
-        this.count = count;
-        this.published_date = published_date;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -58,14 +65,6 @@ public class BookDto implements Serializable {
         this.title = title;
     }
 
-    public AuthorDto getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(AuthorDto author) {
-        this.author = author;
-    }
-
     public int getNumberPages() {
         return numberPages;
     }
@@ -82,11 +81,11 @@ public class BookDto implements Serializable {
         this.count = count;
     }
 
-    public LocalDate getPublished_date() {
-        return published_date;
+    public LocalDate getPublishedDate() {
+        return publishedDate;
     }
 
-    public void setPublished_date(LocalDate published_date) {
-        this.published_date = published_date;
+    public void setPublishedDate(LocalDate publishedDate) {
+        this.publishedDate = publishedDate;
     }
 }

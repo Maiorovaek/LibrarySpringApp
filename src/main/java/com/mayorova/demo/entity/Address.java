@@ -1,27 +1,23 @@
-package com.mayorova.demo.dto;
+package com.mayorova.demo.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.*;
 
-import java.io.Serializable;
-
-public class AddressDto implements Serializable {
-    @JsonProperty("id")
-    private Long id;
-    @JsonProperty("street")
+@Entity
+@Table(name = "address")
+public class Address extends EntityBase {
+    @Column(name = "street")
     private String street;
-    @JsonProperty("city")
+    @Column(name = "city")
     private String city;
-    @JsonProperty("number_house")
+    @Column(name = "number_house")
     private Long numberHouse;
-    @JsonProperty("number_flat")
+    @Column(name = "number_flat")
     private Long numberFlat;
 
-    public Long getId() {
-        return id;
-    }
+    @OneToOne(mappedBy = "address")
+    private Reader reader;
 
-    public void setId(Long id) {
-        this.id = id;
+    public Address() {
     }
 
     public String getStreet() {
@@ -54,5 +50,13 @@ public class AddressDto implements Serializable {
 
     public void setNumberFlat(Long numberFlat) {
         this.numberFlat = numberFlat;
+    }
+
+    public Reader getReader() {
+        return reader;
+    }
+
+    public void setReader(Reader reader) {
+        this.reader = reader;
     }
 }

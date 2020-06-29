@@ -1,6 +1,8 @@
 package com.mayorova.demo.dto;
 
-public enum Genre {
+import java.io.Serializable;
+
+public enum Genre implements Serializable {
     FANTASY,
     SINCE_FICTION,
     CRIME,

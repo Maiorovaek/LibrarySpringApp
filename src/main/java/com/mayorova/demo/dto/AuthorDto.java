@@ -3,14 +3,18 @@ package com.mayorova.demo.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
+import java.util.Set;
 
 public class AuthorDto extends PersonDto implements Serializable {
 
+    @JsonProperty("books")
+    Set<BookDto> bookDtoSet;
 
-    public AuthorDto(long id, String firstName, String lastName) {
-        super(id, firstName, lastName);
+    public Set<BookDto> getBookDtoSet() {
+        return bookDtoSet;
     }
 
-    public AuthorDto() {
+    public void setBookDtoSet(Set<BookDto> bookDtoSet) {
+        this.bookDtoSet = bookDtoSet;
     }
 }

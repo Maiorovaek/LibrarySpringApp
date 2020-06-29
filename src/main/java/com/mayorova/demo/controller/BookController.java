@@ -1,46 +1,45 @@
 package com.mayorova.demo.controller;
 
-import com.mayorova.demo.dto.AuthorDto;
+
 import com.mayorova.demo.dto.BookDto;
-import com.mayorova.demo.dto.Genre;
+import com.mayorova.demo.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
-import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 
 @RequestMapping("/books")
 @RestController
 public class BookController {
-    private static List<BookDto> bookList = Arrays.asList(new BookDto(2, Genre.DETECTIVE_FICTION, "Remember my words", new AuthorDto(2, "James ", "Chase"), 52, 1, LocalDate.of(2020, 6, 7)));
+    private final BookService bookService;
 
-    public BookController() {
+    @Autowired
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
     }
 
     @GetMapping(value = "/{id}")
-    public BookDto getBook(@PathVariable int id) {
-        return bookList.get(id);
+    public BookDto getBook(@PathVariable Long id) {
+        return bookService.getById(id);
     }
 
     @GetMapping
     public List<BookDto> getAllBooks() {
-        return bookList;
+        return bookService.getAll();
     }
 
     @PutMapping
     public BookDto updateBook(@RequestBody BookDto book) {
-
-        return null;
+        return bookService.updateBook(book);
     }
 
-    @DeleteMapping
-    public void deleteBook(@PathParam("id") Long id) {
+    @DeleteMapping(value = "/{id}")
+    public void deleteBook(@PathVariable("id") Long id) {
+        bookService.deleteById(id);
     }
 
     @PostMapping
-    public BookDto createBook(BookDto book) {
-        return null;
+    public BookDto createBook(@RequestBody BookDto bookDto) {
+        return bookService.createBook(bookDto);
     }
 }
-

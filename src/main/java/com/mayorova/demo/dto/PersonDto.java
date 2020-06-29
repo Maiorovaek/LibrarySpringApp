@@ -7,26 +7,17 @@ import java.io.Serializable;
 public abstract class PersonDto implements Serializable {
 
     @JsonProperty("id")
-    private long id;
+    private Long id;
     @JsonProperty("first_name")
     private String firstName;
     @JsonProperty("last_name")
     private String lastName;
 
-    public PersonDto() {
-    }
-
-    public PersonDto(long id, String firstName, String lastName){
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
